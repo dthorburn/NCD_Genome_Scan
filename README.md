@@ -17,5 +17,5 @@ As it currently stands, the ```NCD_Gen``` function takes ~0.6 minutes to process
 # NCD1
 
 There are some minor changes I am making to the NCD1 code too. The ealier changes should only increase the accuracy of NCD1 due to a more accurate calculation of ```MAF``` being achieved. The major changes I've made are:
-* Windows now start at position 1 of the chromosome, rather than the first SNP. This means your first informative site should now be included in multiple windows, rather than just the first. 
+* Windows now start at position 1 of the chromosome, rather than the first SNP. This means your first informative site can now be included in multiple windows, rather than just the first - window size dependent. 
 * I've added extra columns for ```Chr```, ```Start```, and ```End``` to the final output of NCD1 for ease of use in downstream analyses. As well as re-ordering the output by the ```Start``` column. At least in my attempts to use the original, information was being lost becuase of how the ```Win.ID``` column was being handled, though I still don't know why.  
