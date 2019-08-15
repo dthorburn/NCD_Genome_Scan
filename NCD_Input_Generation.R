@@ -43,8 +43,10 @@ Freq_Fun <- function(input, value){
 ## AF1-5 fields are replaced with NA's if the number is 0. Otherwise MAF will always be 0, even if, for example, AF3 and AF4 are 0.25 and 0.75
 ## because the AF1 is 0.00. Thus, the default MAF for an invariant site is now 1.00. This is handled fine in NCD1s code.   
 NCD_Gen <- function(vcf_obj, population_ID){
-	output <- data.table(CHR = vcf_obj@fix[,"CHROM"], POS = vcf_obj@fix[,"POS"], ID = paste(vcf_obj@fix[,"CHROM"], vcf_obj@fix[,"POS"], sep = "|"),
-							REF = vcf_obj@fix[,"REF"], ALT = vcf_obj@fix[,"ALT"],
+	output <- data.table(CHR = vcf_obj@fix[,"CHROM"], POS = vcf_obj@fix[,"POS"] %>% as.integer(), 
+			     				ID = paste(vcf_obj@fix[,"CHROM"], vcf_obj@fix[,"POS"], sep = "|"),
+							REF = vcf_obj@fix[,"REF"], 
+			     				ALT = vcf_obj@fix[,"ALT"],
 							AF1 = gsub(pattern = ":.*", replacement =  "", vcf_obj@gt[,as.character(Population_list[,population_ID])]) %>% as.data.frame() %>%
 									apply(MARGIN = 1, FUN = paste, collapse = "|") %>% Freq_Fun("0") %>% gsub(pattern = "^0$", replacement = NA) %>% as.numeric(),
 							AF2 = gsub(pattern = ":.*", replacement =  "", vcf_obj@gt[,as.character(Population_list[,population_ID])]) %>% as.data.frame() %>%
