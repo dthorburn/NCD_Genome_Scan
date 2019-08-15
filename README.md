@@ -1,13 +1,13 @@
 # NCD Input Generation and NCD1
 
-The scripts published here are originally based on the NCD statistic from the publication [Bitarello et al. 2019 in GBE](https://academic.oup.com/gbe/article/10/3/939/4938688). The original scripts upon which mine are based are published [here](https://github.com/bbitarello/NCD-Statistics). 
+The scripts published here are based on the NCD statistic from the publication [Bitarello et al. 2019 in GBE](https://academic.oup.com/gbe/article/10/3/939/4938688). The original scripts upon which mine are based are published [here](https://github.com/bbitarello/NCD-Statistics). 
 
 Additionally, all my scripts are heavily annotated and written for use in R. 
 
 # Input Generation
 
 The ```NCD_Gen``` function has some alterations compared to the one used by the original authors. The main alterations are:
-* Allele frequencies are calculated for all possible variants at a site. In the example data set in the NCD repo', only the reference, first and second (?) alternate are considered, potentially leaving any site with 3-4 (or 5 if you include wildcards like GATK's ```*```)
+* Allele frequencies are calculated for all possible variants at a site. In the example data set in the NCD repo', only the reference, first and second (?) alternate are considered, potentially leaving any site with alternate variants 3-4 (or 5 if you include wildcards like GATK's ```*```)
 * ```MAF``` now is now the lowest value between all 5 ```AF``` columns. Again, in the example data, ```MAF``` was seemingly the lowest value between only ```AF1``` and ```AF2```, even in cases where ```AF3``` was lower.
 
 My script works using the ```vcfR``` package to access the genotype field in VCFs. I have only tested this on unphased data, where the genotype field is separated by ```/```, rather than ```|```, but both should be handled correctly. 
